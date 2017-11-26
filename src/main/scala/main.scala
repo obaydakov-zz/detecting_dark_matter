@@ -24,12 +24,9 @@ import water.api.RequestServer
 import water.util.{Log, LogBridge}
 import water.support.SparkContextSupport.addFiles
 import water.support.H2OFrameSupport._
-
-
 import ai.h2o.automl.AutoML
 import ai.h2o.automl.AutoMLBuildSpec
-
-
+import darkmatter.Tabulizer
 import water.support.SparkContextSupport
 
 object dark_matter extends SparkContextSupport{
