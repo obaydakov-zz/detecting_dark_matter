@@ -25,7 +25,7 @@ object advanced_analytics_spark {
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
 
-    println(System.getenv("HIVE_CONF_DIR"))
+    //println(System.getenv("HIVE_CONF_DIR"))
 
     import org.apache.spark.h2o._
     implicit val spark: SparkSession = SparkSession.builder()
