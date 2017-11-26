@@ -14,6 +14,11 @@ import water.util.LogBridge
  import org.apache.spark.sql._
 
 
+// ADD ENV VARAIBLES
+// ADD core-site.xml, hidfs-site.xml, mapred-site.xml, yarn-site.xml to resoutce
+// ADD jars from SPARK to project modules - File-> Project Structure - >Module->Dependencies
+
+
 object advanced_analytics_spark {
 
 
@@ -25,17 +30,25 @@ object advanced_analytics_spark {
     Logger.getLogger("org").setLevel(Level.OFF)
     Logger.getLogger("akka").setLevel(Level.OFF)
 
-    //println(System.getenv("HIVE_CONF_DIR"))
+    println(System.getenv("HADOOP_CONF_DIR"))
+    println(System.getenv("HIVE_CONF_DIR"))
+    println(System.getenv("HIVE_HOME"))
+    println(System.getenv("SPARK_HOME"))
+
+    System.setProperty("SPARK_YARN_MODE", "yarn")
+
 
     import org.apache.spark.h2o._
     implicit val spark: SparkSession = SparkSession.builder()
-      .appName("Intro")
-      .master("spark://127.0.0.1:7077")
+     // .master("spark://127.0.0.1:7077")
+      .master("yarn-client")
+     .config("spark.local.ip", "127.0.0.1")
+     .config("spark.driver.host", "127.0.0.1")
     //  .master("local[6]")
       .appName("Chapter2")
      // .config("fs.defaultFS", "hdfs://localhost:8020/")
       .config("spark.sql.warehouse.dir", "hdfs://localhost:8020/user/hive/warehouse")
-     .config("hive.metastore.uris", "thrift://localhost:9083")
+     .config("hive.metastore.uris", "thrift://127.0.0.1:9083")
       .enableHiveSupport()
       .getOrCreate
 
@@ -48,13 +61,13 @@ object advanced_analytics_spark {
     val sc = spark.sparkContext
     val sqlContext = spark.sqlContext
 
-  //  val parsed = spark.read
-  //    .option("header", "true")
-  //    .option("nullValue", "?")
-  //    .option("inferSchema", "true")
-  //    .csv("hdfs://localhost:8020/data/linkage")
+    val parsed = spark.read
+      .option("header", "true")
+      .option("nullValue", "?")
+      .option("inferSchema", "true")
+      .csv("hdfs://localhost:8020/data/linkage")
 
-    //parsed.show(5)
+    parsed.show(5)
 
     /*spark.sql("""
       SELECT is_match, COUNT(*) cnt
@@ -62,11 +75,11 @@ object advanced_analytics_spark {
       GROUP BY is_match
       ORDER BY cnt DESC""").show()*/
 
-   // val summary = parsed.describe()
+    val summary = parsed.describe()
 
-    //summary.select("summary", "cmp_fname_c1", "cmp_fname_c2").show()
-    //summary.show()
-    //summary.printSchema()
+    summary.select("summary", "cmp_fname_c1", "cmp_fname_c2").show()
+    summary.show()
+    summary.printSchema()
 
     import spark.implicits._
 

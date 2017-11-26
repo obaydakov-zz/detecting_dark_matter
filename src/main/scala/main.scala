@@ -75,10 +75,16 @@ object dark_matter extends SparkContextSupport{
 
     import org.apache.spark.h2o._
     implicit val spark: SparkSession = SparkSession.builder()
-      .appName("Intro")
-      // .master("spark://127.0.0.1:7077")
-      .master("local[6]")
+     // .master("spark://127.0.0.1:7077")
+        .master("yarn-client")
+     .config("spark.local.ip", "127.0.0.1")
+     .config("spark.driver.host", "127.0.0.1")
+    //  .master("local[6]")
       .appName("Chapter2")
+     // .config("fs.defaultFS", "hdfs://localhost:8020/")
+      .config("spark.sql.warehouse.dir", "hdfs://localhost:8020/user/hive/warehouse")
+     .config("hive.metastore.uris", "thrift://127.0.0.1:9083")
+      .enableHiveSupport()
       .getOrCreate
 
     //println("ERROR "+ Log.valueOf("ERROR"))
@@ -172,9 +178,9 @@ object dark_matter extends SparkContextSupport{
     val (trainingData, testData: RDD[LabeledPoint]) = (trainTestSplits(0), trainTestSplits(1))
 
 
-    //MyDL(trainingData,testData)
+    MyDL(trainingData,testData)
 
-    MyGBM(trainingData,testData)
+   // MyGBM(trainingData,testData)
 
    // spark.stop()
 

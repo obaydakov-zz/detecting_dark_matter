@@ -24,6 +24,9 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0"
+libraryDependencies += "org.apache.spark" %% "spark-yarn" % "2.2.0" % "provided"
+
+libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.5"
 
 //libraryDependencies += "ai.h2o" % "h2o-scala_2.11" % "3.14.0.7" pomOnly()
 
