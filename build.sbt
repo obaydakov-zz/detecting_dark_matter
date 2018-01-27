@@ -19,14 +19,20 @@ libraryDependencies ++= Seq(
 
   "ai.h2o" % "sparkling-water-core_2.11" % "2.2.2",
   "ai.h2o" % "sparkling-water-ml_2.11" % "2.2.2",
-  "ai.h2o"  % "sparkling-water-repl_2.11" % "2.2.2"
+  "ai.h2o"  % "sparkling-water-repl_2.11" % "2.2.2",
+  // https://mvnrepository.com/artifact/ai.h2o/h2o-genmodel-ext-xgboost
+  "ai.h2o" % "h2o-genmodel-ext-xgboost" % "3.16.0.1" % "runtime" pomOnly(),
+
+  "ai.h2o" %% "sparkling-water-examples" % "2.2.3"
+
+
 
 )
 
 libraryDependencies += "org.apache.spark" % "spark-hive_2.11" % "2.2.0"
 libraryDependencies += "org.apache.spark" %% "spark-yarn" % "2.2.0" % "provided"
 
-libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.5"
+//libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.5"
 
 //libraryDependencies += "ai.h2o" % "h2o-scala_2.11" % "3.14.0.7" pomOnly()
 

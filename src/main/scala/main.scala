@@ -49,7 +49,7 @@ object dark_matter extends SparkContextSupport{
   }
 
 
-
+    case class Person(name:String)
 
   def main(args: Array[String]): Unit = {
 
@@ -75,8 +75,8 @@ object dark_matter extends SparkContextSupport{
 
     import org.apache.spark.h2o._
     implicit val spark: SparkSession = SparkSession.builder()
-     // .master("spark://127.0.0.1:7077")
-        .master("yarn-client")
+      .master("spark://127.0.0.1:7077")
+     //   .master("yarn-client")
      .config("spark.local.ip", "127.0.0.1")
      .config("spark.driver.host", "127.0.0.1")
     //  .master("local[6]")
@@ -87,6 +87,9 @@ object dark_matter extends SparkContextSupport{
       .enableHiveSupport()
       .getOrCreate
 
+    //spark.ext.h2o.node.log.level=DEBUG --conf spark.ext.h2o.client.log.level=DEBUG
+
+
     //println("ERROR "+ Log.valueOf("ERROR"))
 
     val sc = spark.sparkContext
@@ -94,6 +97,11 @@ object dark_matter extends SparkContextSupport{
 
 
 
+
+   // val ds: Dataset[Person] = spark.read
+   //   .option("header","true")
+   //   .csv("people.csv")
+   //   .as[Person]
 
     //val ssc = new StreamingContext(sc, Durations.seconds(2))
     //ssc.start()

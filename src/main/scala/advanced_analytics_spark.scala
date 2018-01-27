@@ -49,6 +49,10 @@ object advanced_analytics_spark {
      // .config("fs.defaultFS", "hdfs://localhost:8020/")
       .config("spark.sql.warehouse.dir", "hdfs://localhost:8020/user/hive/warehouse")
      .config("hive.metastore.uris", "thrift://127.0.0.1:9083")
+    //  .config("spark.dynamicAllocation.enabled",true)
+    //  .config("spark.shuffle.service.enabled",true)  //sbin/stop-shuffle-service.sh
+    //    "spark.dynamicAllocation.enabled"=TRUE,
+   // #    "spark.shuffle.service.enabled"=TRUE,
       .enableHiveSupport()
       .getOrCreate
 
